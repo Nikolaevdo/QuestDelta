@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
 
-@WebServlet(name = MENUSERVLET, value = MENUSERVLETVALUE)
+@WebServlet(name = MENUSERVLET, value = {MENUSERVLETVALUE, ""})
 public class MenuServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
