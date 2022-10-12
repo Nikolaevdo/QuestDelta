@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="col control-label" for="input_username"><strong>Username</strong></label>
                 <div class="col d-flex flex-column mb-2">
-                    <input id="input_username" name="input_username" type="text" placeholder="username"
+                    <input id="input_username" name="login" type="text" placeholder="username"
                            class="form-control input-md" required
                            minlength="1" maxlength="20" pattern="[A-Za-z0-9]+">
                     <span class="form-text text-center"><small>Latin letters or digits</small></span>
@@ -28,7 +28,7 @@
             <div class="form-group">
                 <label class="col control-label" for="input_password"><strong>Password</strong></label>
                 <div class="col d-flex flex-column mb-2">
-                    <input id="input_password" name="input_password" type="password" placeholder="********"
+                    <input id="input_password" name="password" type="password" placeholder="********"
                            class="form-control input-md" required
                            minlength="1" maxlength="8" pattern="[A-Za-z0-9]+">
                     <span class="form-text text-center"><small>Latin letters or digits</small></span>
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label class="col control-label" for="select_roles"><strong>Role</strong></label>
                 <div class="col">
-                    <select id="select_roles" name="select_roles" class="form-control">
+                    <select id="select_roles" name="role" class="form-control">
                         <option value="1">Option one</option>
                         <option value="2">Option two</option>
                     </select>
