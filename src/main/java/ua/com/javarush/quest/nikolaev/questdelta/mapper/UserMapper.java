@@ -8,6 +8,7 @@ public class UserMapper implements Mapper<UserDto, User> {
     @Override
     public UserDto toDto(User entity) {
         return UserDto.builder()
+                .id(entity.getId())
                 .login(entity.getLogin())
                 .role(entity.getRole())
                 .build();
