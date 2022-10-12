@@ -7,6 +7,7 @@ import ua.com.javarush.quest.nikolaev.questdelta.entity.Role;
 @Data
 @Builder
 public class UserDto{
+    private Long id;
     private String login;
     private Role role;
 }
