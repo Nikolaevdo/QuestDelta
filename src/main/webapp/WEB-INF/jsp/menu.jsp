@@ -6,7 +6,6 @@
 <head>
     <title>Menu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <c:import url="parts/links.jsp"/>
 </head>
 <body>
 <c:import url="parts/header.jsp"/>
