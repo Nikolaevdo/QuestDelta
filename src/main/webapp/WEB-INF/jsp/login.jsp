@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Login</title>
-    <c:import url="/WEB-INF/jsp/parts/links.jsp"/>
     <link rel="stylesheet" href="static/signin.css"/>
 </head>
 <body>

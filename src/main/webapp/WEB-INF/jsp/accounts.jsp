@@ -6,7 +6,6 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <c:import url="/WEB-INF/jsp/parts/links.jsp"/>
     <link rel="stylesheet" href="static/style.css"/>
 </head>
 
