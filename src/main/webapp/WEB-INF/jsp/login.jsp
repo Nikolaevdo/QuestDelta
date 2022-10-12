@@ -5,12 +5,12 @@
 <head>
     <title>Login</title>
     <c:import url="/WEB-INF/jsp/parts/links.jsp"/>
-    <link rel="stylesheet" href="static/signin.css" />
+    <link rel="stylesheet" href="static/signin.css"/>
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
     <form action="${pageContext.request.contextPath}/login" method="post">
-<%--        <img class="mb-3 mx-auto d-block" src="images/person-protection.svg" alt="" width="72" height="72">--%>
+        <%--        <img class="mb-3 mx-auto d-block" src="images/person-protection.svg" alt="" width="72" height="72">--%>
         <img class="mb-3 mx-auto d-block" src="images/person-protection.svg" alt="" width="100" height="100">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 

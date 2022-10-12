@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class UserRepository implements Repository<User>{
+public class UserRepository implements Repository<User> {
 
     private static UserRepository userRepository;
 
@@ -16,6 +16,7 @@ public class UserRepository implements Repository<User>{
 
     private static final AtomicLong id = new AtomicLong(0);
 
+    // Create start userAccounts
     private UserRepository() {
         users.put(1L, User.builder()
                 .id(1L)
@@ -45,19 +46,12 @@ public class UserRepository implements Repository<User>{
     @Override
     public Optional<User> find(User user) {
         return users.values().stream()
-                        .filter(userInDB -> isSame(userInDB, user))
-                        .findFirst();
-    }
-
-    private boolean isSame(User userInDB, User user) {
-        //TODO validate user password in Filter Auth
-
-        return userInDB.getLogin().equals(user.getLogin())
-        && userInDB.getPassword().equals(user.getPassword());
+                .filter(userInDB -> userInDB.getLogin().equals(user.getLogin()))
+                .findFirst();
     }
 
     @Override
-    public void add(User entity) {
+    public void create(User entity) {
         entity.setId(id.incrementAndGet());
         update(entity);
     }

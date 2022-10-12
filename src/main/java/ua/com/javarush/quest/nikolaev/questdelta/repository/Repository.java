@@ -8,7 +8,7 @@ public interface Repository<T> {
 
     Optional<T> find(T entity);
 
-    void add(T entity);
+    void create(T entity);
 
     void update(T entity);
 

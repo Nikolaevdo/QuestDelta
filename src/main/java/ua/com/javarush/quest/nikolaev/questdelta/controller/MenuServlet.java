@@ -9,11 +9,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "MenuServlet", value = "/menu")
+import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
+
+@WebServlet(name = MENUSERVLET, value = MENUSERVLETVALUE)
 public class MenuServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher(PATH_TO_JSP + MENU); //("/WEB-INF/jsp/menu.jsp");
         rd.forward(req, resp);
     }
 }
