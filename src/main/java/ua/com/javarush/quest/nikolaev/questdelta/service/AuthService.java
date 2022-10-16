@@ -2,8 +2,7 @@ package ua.com.javarush.quest.nikolaev.questdelta.service;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
-import ua.com.javarush.quest.nikolaev.questdelta.entity.User;
+import ua.com.javarush.quest.nikolaev.questdelta.dto.UserDto;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Jsp;
 
 import java.io.IOException;
@@ -33,7 +32,7 @@ public enum AuthService {
             Jsp.forward(req, resp, SIGNUP);
         }
 
-        Optional<User> user = userService.findByLogin(login);
+        Optional<UserDto> user = userService.findByLogin(login);
         if (user.isPresent()) {
             req.setAttribute(ERROR_ATTRIBUTE, LOGIN_ALREADY_USED);
             Jsp.forward(req, resp, SIGNUP);

@@ -20,7 +20,7 @@ import java.util.Optional;
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.ErrorMessage.*;
 
-@WebServlet(name =SIGNUPSERVLET, value = SIGNUPSERVLETVALUE)
+@WebServlet(name = SIGNUPSERVLET, value = SIGNUPSERVLETVALUE)
 public class SignupServlet extends HttpServlet {
 
     private final UserService userService = UserService.INSTANCE;
@@ -47,18 +47,17 @@ public class SignupServlet extends HttpServlet {
             Jsp.forward(req, resp, SIGNUP);
         }
 
-        Optional<User> user = userService.findByLogin(login);
+        Optional<UserDto> user = userService.findByLogin(login);
         if (user.isPresent()) {
             req.setAttribute(Attribute.ERROR.getName(), LOGIN_ALREADY_USED);
             Jsp.forward(req, resp, SIGNUP);
         }
 
         userService.createUser(login, password);
-        Optional<User> userFromDB = userService.findByCredentials(login, password);
-        if(userFromDB.isPresent()){
-            UserDto userDto = userMapper.toDto(userFromDB.get());
+        Optional<UserDto> userDtoFromDB = userService.findByCredentials(login, password);
+        if (userDtoFromDB.isPresent()) {
             HttpSession session = req.getSession();
-            session.setAttribute(Attribute.USER.getName(), userDto);
+            session.setAttribute(Attribute.USER.getName(), userDtoFromDB);
             Jsp.forward(req, resp, MENU);
         } else {
             req.setAttribute(Attribute.ERROR.getName(), USER_NOT_CREATED);

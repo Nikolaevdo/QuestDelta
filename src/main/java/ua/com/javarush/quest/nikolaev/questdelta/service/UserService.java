@@ -1,7 +1,10 @@
 package ua.com.javarush.quest.nikolaev.questdelta.service;
 
+import ua.com.javarush.quest.nikolaev.questdelta.dto.UserDto;
 import ua.com.javarush.quest.nikolaev.questdelta.entity.Role;
 import ua.com.javarush.quest.nikolaev.questdelta.entity.User;
+import ua.com.javarush.quest.nikolaev.questdelta.mapper.Mapper;
+import ua.com.javarush.quest.nikolaev.questdelta.mapper.UserMapper;
 import ua.com.javarush.quest.nikolaev.questdelta.repository.Repository;
 import ua.com.javarush.quest.nikolaev.questdelta.repository.UserRepository;
 
@@ -10,22 +13,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
+
 public enum UserService {
     INSTANCE;
-
+    private final Mapper<UserDto, User> userMapper = new UserMapper();
     private final Repository<User> userRepository = UserRepository.getInstance();
 
-    public Optional<User> findByCredentials(String login, String password) {
-        return userRepository.find(User.builder()
-                .login(login)
-                .password(password)
-                .build());
+    public Optional<UserDto> findByCredentials(String login, String password) {
+        Optional<User> userOptional = userRepository.find(User.builder()
+                        .login(login)
+                        .password(password)
+                        .build())
+                .stream().findFirst();
+
+        return userOptional.map(userMapper::toDto);
     }
 
-    public Optional<User> findByLogin(String login) {
-        return userRepository.find(User.builder()
-                .login(login)
-                .build());
+    public Optional<UserDto> findByLogin(String login) {
+        Optional<User> userOptional = userRepository.find(User.builder()
+                        .login(login)
+                        .build()).stream()
+                .findFirst();
+
+        return userOptional.map(userMapper::toDto);
     }
 
     public boolean validateLogin(String login) {
