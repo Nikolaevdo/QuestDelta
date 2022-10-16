@@ -11,6 +11,7 @@ public class Const {
     public final String LOGOUTSERVLET = "LogoutServlet";
     public final String MENUSERVLET = "MenuServlet";
     public final String SIGNUPSERVLET = "SignupServlet";
+    public final String PROFILESERVLET = "ProfileServlet";
 
     //Value servlet for Lombok
     public final String ACCOUNTSERVLETVALUE = "/accounts";
@@ -18,16 +19,18 @@ public class Const {
     public final String LOGOUTSERVLETVALUE = "/logout";
     public final String MENUSERVLETVALUE = "/menu";
     public final String SIGNUPSERVLETVALUE = "/signup";
+
+    public final String PROFILESERVLETVALUE = "/profile";
+
     public final String PATH_TO_JSP = "/WEB-INF/jsp/";
     public final String MENU = "menu.jsp";
     public final String LOGIN = "login.jsp";
     public final String SIGNUP = "signup.jsp";
     public final String ACCOUNTS = "accounts.jsp";
+    public final String PROFILE = "profile.jsp";
 
 
     public static final String ERROR_ATTRIBUTE = "error";
-    public static final String USER_ATTRIBUTE = "user";
-
     public static final String REGEX_LOGIN = "^[A-Za-z\\d]{1,20}$";
     public static final String REGEX_PASS = "^[A-Za-z\\d]{1,8}$";
 }
