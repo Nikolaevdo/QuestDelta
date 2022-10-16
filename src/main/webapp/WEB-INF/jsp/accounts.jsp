@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="ua.com.javarush.quest.nikolaev.questdelta.entity.Role" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,7 @@
             <h4 class="card-title text-center">Accounts list</h4>
 
             <div class="form-group d-flex my-2">
-                <label class="bold" for="counts">Number of accounts per list</label>
+                <label class="bold me-2 text-muted" for="counts">Accounts per list</label>
                 <select id="counts" class="selector">
                     <option value="3" selected>3</option>
                     <option value="5">5</option>
@@ -31,51 +32,59 @@
                 <tr>
                     <th>#</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Role</th>
-                    <th>Edit</th>
+                    <th>Id</th>
+                    <c:if test="${Role.ADMIN eq sessionScope.user.role}">
+                        <th>Edit</th>
+                    </c:if>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row">1</th>
                     <td>Ivan</td>
-                    <td>123</td>
                     <td>User</td>
-                    <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
+                    <td>32</td>
+                    <c:if test="${Role.ADMIN eq sessionScope.user.role}">
+                        <td>
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
-                    <td>321</td>
                     <td>Admin</td>
-                    <td>
+                    <td>33</td>
+                    <c:if test="${Role.ADMIN eq sessionScope.user.role}"><td>
                         <a href="#">Edit</a>
                         <a href="#">Delete</a>
-                    </td>
+                    </td></c:if>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>Arsh</td>
-                    <td>Qwerty123</td>
+                    <td>Michle</td>
                     <td>Editor</td>
-                    <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
+                    <td>42</td>
+                    <c:if test="${Role.ADMIN eq sessionScope.user.role}">
+                        <td>
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
                     <td>Guest#266</td>
                     <td></td>
                     <td>Guest</td>
-                    <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
+                    <c:if test="${Role.ADMIN eq sessionScope.user.role}">
+                        <td>
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </td>
+                    </c:if>
                 </tr>
                 </tbody>
             </table>

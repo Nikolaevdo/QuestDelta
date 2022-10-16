@@ -14,7 +14,8 @@ public class UserRepository implements Repository<User> {
 
     private final Map<Long, User> users = new HashMap<>();
 
-    private static final AtomicLong id = new AtomicLong(0);
+    private static final AtomicLong id = new AtomicLong(System.currentTimeMillis());
+
 
     // Create start userAccounts
     private UserRepository() {
@@ -32,6 +33,12 @@ public class UserRepository implements Repository<User> {
                 .build());
         users.put(3L, User.builder()
                 .id(3L)
+                .login("editor")
+                .password("12345")
+                .role(Role.EDITOR)
+                .build());
+        users.put(4L, User.builder()
+                .id(4L)
                 .login("guest")
                 .password("333")
                 .role(Role.GUEST)
