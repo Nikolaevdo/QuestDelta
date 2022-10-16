@@ -5,10 +5,10 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="static/signin.css"/>
+    <link rel="stylesheet" href="static/signing.css"/>
 </head>
 <body>
-<c:import url="/WEB-INF/jsp/parts/header.jsp"/>
+
 
 <main class="form-signin w-100 m-auto">
     <form action="${pageContext.request.contextPath}/login" method="post">
