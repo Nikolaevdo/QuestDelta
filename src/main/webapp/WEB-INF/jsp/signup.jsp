@@ -14,7 +14,8 @@
     <form class="form-horizontal" action="${pageContext.request.contextPath}/signup" method="post">
 
         <fieldset>
-            <img class="mb-3 mx-auto d-block" src="/images/cat.png" alt="" width="100" height="100">
+            <img class="mb-3 mx-auto d-block" src="${pageContext.request.contextPath}/images/cat.png" alt="logo"
+                 width="100" height="100">
             <legend class="text-center">Register</legend>
 
             <div class="form-group">

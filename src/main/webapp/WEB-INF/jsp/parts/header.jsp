@@ -6,7 +6,8 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="${pageContext.request.contextPath}/menu"
                class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img class="bi me-2" width="40" height="40" src="/images/cat.png" alt="cat-logo"/>
+                <img class="bi me-2" width="40" height="40" src="${pageContext.request.contextPath}/images/cat.png"
+                     alt="logo"/>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -18,7 +19,7 @@
                 <c:if test="${Role.ADMIN == sessionScope.user.role or Role.EDITOR == sessionScope.user.role}">
                     <li><a href="${pageContext.request.contextPath}/edit" class="nav-link px-2 text-white">Edit</a></li>
                 </c:if>
-                <li><a href="${pageContext.request.contextPath}/play" class="nav-link px-2 text-white">Game</a></li>
+                <li><a href="${pageContext.request.contextPath}/game" class="nav-link px-2 text-white">Game</a></li>
             </ul>
 
             <div class="d-flex align-items-center">

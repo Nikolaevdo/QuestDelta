@@ -10,4 +10,5 @@ public class ErrorMessage {
     public final String USER_NOT_FOUND = "User not found";
     public final String USER_NOT_CREATED = "User not created";
     public final String WRONG_PASSWORD = "Wrong password";
+    public final String DELETE_YOURSELF = "You can't delete your profile";
 }

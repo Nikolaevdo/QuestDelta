@@ -4,7 +4,8 @@ public enum Attribute {
     ERROR("error"),
     USER("user"),
     ROLE("role"),
-    USERS("users");
+    USERS("users"),
+    COUNT_USERS("countUsers");
 
     private final String name;
 
