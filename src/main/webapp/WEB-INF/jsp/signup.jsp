@@ -55,17 +55,6 @@
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
-                            <%--                            <c:otherwise>--%>
-                            <%--                                <option value="${role}"><c:out value="${role}"/></option>--%>
-                            <%--                                <c:if test="${Role.ADMIN != role}">--%>
-                            <%--                                    <option value="${role}"><c:out value="${role}"/></option>--%>
-                            <%--                                </c:if>--%>
-                            <%--                                <c:otherwise>--%>
-                            <%--                                    <c:if test="${Role.ADMIN == sessionScope.role}">--%>
-                            <%--                                        <option value="${role}"><c:out value="${role}"/></option>--%>
-                            <%--                                    </c:if>--%>
-                            <%--                                </c:otherwise>--%>
-                            <%--                            </c:otherwise>--%>
                         </c:forEach>
                     </select>
                 </div>
