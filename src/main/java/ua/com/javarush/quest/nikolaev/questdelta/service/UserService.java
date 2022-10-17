@@ -8,6 +8,7 @@ import ua.com.javarush.quest.nikolaev.questdelta.mapper.UserMapper;
 import ua.com.javarush.quest.nikolaev.questdelta.repository.Repository;
 import ua.com.javarush.quest.nikolaev.questdelta.repository.UserRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,12 @@ public enum UserService {
                 .stream().findFirst();
 
         return userOptional.map(userMapper::toDto);
+    }
+
+    public Collection<UserDto> getAll() {
+        return userRepository.getAll().stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 
     public Optional<UserDto> findByLogin(String login) {

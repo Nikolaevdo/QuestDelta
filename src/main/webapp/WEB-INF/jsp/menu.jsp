@@ -10,7 +10,8 @@
 <body>
 <c:import url="parts/header.jsp"/>
 
-<h1><%= "MENU" %></h1>
+<h1><%= "MENU" %>
+</h1>
 
 <c:import url="parts/footer.jsp"/>
 <c:import url="parts/scripts.jsp"/>

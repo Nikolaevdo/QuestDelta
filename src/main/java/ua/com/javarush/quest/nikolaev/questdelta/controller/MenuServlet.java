@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ua.com.javarush.quest.nikolaev.questdelta.entity.Role;
+import ua.com.javarush.quest.nikolaev.questdelta.utils.Attribute;
+import ua.com.javarush.quest.nikolaev.questdelta.utils.Jsp;
 
 import java.io.IOException;
 
@@ -15,11 +17,12 @@ import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
 
 @WebServlet(name = MENUSERVLET, value = {MENUSERVLETVALUE, ""})
 public class MenuServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("user.role", Role.GUEST);
-        RequestDispatcher rd = req.getRequestDispatcher(PATH_TO_JSP + MENU); //("/WEB-INF/jsp/menu.jsp");
-        rd.forward(req, resp);
+        session.setAttribute(Attribute.ROLE.getName(), Role.GUEST);
+        Jsp.forward(req, resp, MENU);
     }
 }
+

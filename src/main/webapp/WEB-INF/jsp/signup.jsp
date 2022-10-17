@@ -5,16 +5,16 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="static/signin.css"/>
+    <link rel="stylesheet" href="/static/signing.css"/>
 </head>
 <body>
-<c:import url="/WEB-INF/jsp/parts/header.jsp"/>
+
 
 <main class="form-register w-100 m-auto">
     <form class="form-horizontal" action="${pageContext.request.contextPath}/signup" method="post">
 
         <fieldset>
-            <img class="mb-3 mx-auto d-block" src="images/eagle-black.svg" alt="" width="100" height="100">
+            <img class="mb-3 mx-auto d-block" src="/images/cat.png" alt="" width="100" height="100">
             <legend class="text-center">Register</legend>
 
             <div class="form-group">

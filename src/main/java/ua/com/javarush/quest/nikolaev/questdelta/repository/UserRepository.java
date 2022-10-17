@@ -3,6 +3,7 @@ package ua.com.javarush.quest.nikolaev.questdelta.repository;
 import ua.com.javarush.quest.nikolaev.questdelta.entity.Role;
 import ua.com.javarush.quest.nikolaev.questdelta.entity.User;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -43,6 +44,13 @@ public class UserRepository implements Repository<User> {
                 .password("333")
                 .role(Role.GUEST)
                 .build());
+    }
+
+
+    public Collection<User> getAll() {
+        return users.values()
+                .stream()
+                .toList();
     }
 
     @Override

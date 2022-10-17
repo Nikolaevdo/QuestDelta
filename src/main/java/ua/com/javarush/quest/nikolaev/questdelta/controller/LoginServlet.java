@@ -4,9 +4,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import ua.com.javarush.quest.nikolaev.questdelta.dto.UserDto;
-import ua.com.javarush.quest.nikolaev.questdelta.entity.User;
-import ua.com.javarush.quest.nikolaev.questdelta.mapper.Mapper;
-import ua.com.javarush.quest.nikolaev.questdelta.mapper.UserMapper;
 import ua.com.javarush.quest.nikolaev.questdelta.service.UserService;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Attribute;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Jsp;
@@ -20,13 +17,10 @@ import static ua.com.javarush.quest.nikolaev.questdelta.utils.ErrorMessage.*;
 @WebServlet(name = LOGINSERVLET, value = LOGINSERVLETVALUE)
 public class LoginServlet extends HttpServlet {
     private final UserService userService = UserService.INSTANCE;
-    private final Mapper<UserDto, User> userMapper = new UserMapper();
-
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_JSP + LOGIN);//"/WEB-INF/jsp/login.jsp"
-        requestDispatcher.forward(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Jsp.forward(req, resp, LOGIN);
     }
 
     @Override
@@ -48,12 +42,13 @@ public class LoginServlet extends HttpServlet {
         Optional<UserDto> user = userService.findByLogin(login);
 
         if (user.isPresent()) {
-            Optional<UserDto> userFromDB = userService.findByCredentials(login, password);
+            Optional<UserDto> userDtoFromDB = userService.findByCredentials(login, password);
 
-            if (userFromDB.isPresent()) {
-                UserDto userDto = userFromDB.get();
+            if (userDtoFromDB.isPresent()) {
                 HttpSession session = req.getSession();
+                UserDto userDto = userDtoFromDB.get();
                 session.setAttribute(Attribute.USER.getName(), userDto);
+                session.setAttribute(Attribute.ROLE.getName(), userDto.getRole());
                 Jsp.forward(req, resp, MENU);
             } else {
                 req.setAttribute(Attribute.ERROR.getName(), WRONG_PASSWORD);
