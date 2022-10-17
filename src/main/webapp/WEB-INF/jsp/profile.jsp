@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ua.com.javarush.quest.nikolaev.questdelta.entity.Role" %>
 
@@ -7,7 +7,7 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css"/>
 </head>
 
 <body>

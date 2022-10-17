@@ -12,6 +12,7 @@ import ua.com.javarush.quest.nikolaev.questdelta.utils.Attribute;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Jsp;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
@@ -54,8 +55,11 @@ public class SignupServlet extends HttpServlet {
         if (userDtoFromDB.isPresent()) {
             HttpSession session = req.getSession();
             UserDto userDto = userDtoFromDB.get();
-            session.setAttribute(Attribute.USER.getName(), userDto);
-            session.setAttribute(Attribute.ROLE.getName(), userDto.getRole());
+            String username = Attribute.USER.getName();
+            if (Objects.isNull(session.getAttribute(username))) {
+                session.setAttribute(username, userDto);
+                session.setAttribute(Attribute.ROLE.getName(), userDto.getRole());
+            }
             Jsp.forward(req, resp, MENU);
         } else {
             req.setAttribute(Attribute.ERROR.getName(), USER_NOT_CREATED);

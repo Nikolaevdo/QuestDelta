@@ -1,21 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="ua.com.javarush.quest.nikolaev.questdelta.entity.Role" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="/static/signing.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/signing.css"/>
 </head>
 <body>
-
+<c:import url="/WEB-INF/jsp/parts/header.jsp"/>
 
 <main class="form-register w-100 m-auto">
     <form class="form-horizontal" action="${pageContext.request.contextPath}/signup" method="post">
 
         <fieldset>
-            <img class="mb-3 mx-auto d-block" src="${pageContext.request.contextPath}/images/cat.png" alt="logo"
-                 width="100" height="100">
+            <img class="mb-3 mx-auto d-block" src="${pageContext.request.contextPath}/images/cat.png" alt="logo" width="100" height="100">
             <legend class="text-center">Register</legend>
 
             <div class="form-group">
@@ -42,8 +43,30 @@
                 <label class="col control-label" for="select_roles"><strong>Role</strong></label>
                 <div class="col">
                     <select id="select_roles" name="role" class="form-control">
-                        <option value="1">Option one</option>
-                        <option value="2">Option two</option>
+                        <c:forEach var="role" items="${Role.values()}">
+                            <c:choose>
+                                <c:when test="${Role.GUEST == role}"/>
+                                <c:when test="${Role.ADMIN != role}">
+                                    <option value="${role}"><c:out value="${role}"/></option>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${Role.ADMIN == sessionScope.role}">
+                                        <option value="${role}"><c:out value="${role}"/></option>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                            <%--                            <c:otherwise>--%>
+                            <%--                                <option value="${role}"><c:out value="${role}"/></option>--%>
+                            <%--                                <c:if test="${Role.ADMIN != role}">--%>
+                            <%--                                    <option value="${role}"><c:out value="${role}"/></option>--%>
+                            <%--                                </c:if>--%>
+                            <%--                                <c:otherwise>--%>
+                            <%--                                    <c:if test="${Role.ADMIN == sessionScope.role}">--%>
+                            <%--                                        <option value="${role}"><c:out value="${role}"/></option>--%>
+                            <%--                                    </c:if>--%>
+                            <%--                                </c:otherwise>--%>
+                            <%--                            </c:otherwise>--%>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
