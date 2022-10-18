@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ua.com.javarush.quest.nikolaev.questdelta.dto.UserDto;
+import ua.com.javarush.quest.nikolaev.questdelta.entity.Role;
 import ua.com.javarush.quest.nikolaev.questdelta.service.UserService;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Attribute;
 import ua.com.javarush.quest.nikolaev.questdelta.utils.Jsp;
@@ -33,36 +34,44 @@ public class SignupServlet extends HttpServlet {
         String login = req.getParameter("login"); //TODO Duplicate code with LoginServlet
         boolean validLogin = userService.validateLogin(login);
         if (!validLogin) {
-            req.setAttribute(Attribute.ERROR.getName(), LOGIN_NOT_VALID);
+            req.setAttribute(Attribute.ERROR.getValue(), LOGIN_NOT_VALID);
             Jsp.forward(req, resp, SIGNUP);
         }
 
         String password = req.getParameter("password"); //TODO Validate in filter log/pass with AuthService?
         boolean validPass = userService.validatePassword(password);
         if (!validPass) {
-            req.setAttribute(Attribute.ERROR.getName(), PASSWORD_NOT_VALID);
+            req.setAttribute(Attribute.ERROR.getValue(), PASSWORD_NOT_VALID);
             Jsp.forward(req, resp, SIGNUP);
         }
 
         Optional<UserDto> user = userService.findByLogin(login);
         if (user.isPresent()) {
-            req.setAttribute(Attribute.ERROR.getName(), LOGIN_ALREADY_USED);
+            req.setAttribute(Attribute.ERROR.getValue(), LOGIN_ALREADY_USED);
             Jsp.forward(req, resp, SIGNUP);
         }
 
-        userService.createUser(login, password);
+        String roleParameter = req.getParameter("role");
+        Role userRole;
+        if (Objects.isNull(roleParameter)) {
+            userRole = Role.GUEST;
+        } else {
+            userRole = userService.getRole(roleParameter);
+        }
+
+        userService.createUser(login, password, userRole);
         Optional<UserDto> userDtoFromDB = userService.findByCredentials(login, password);
         if (userDtoFromDB.isPresent()) {
             HttpSession session = req.getSession();
             UserDto userDto = userDtoFromDB.get();
-            String username = Attribute.USER.getName();
-            if (Objects.isNull(session.getAttribute(username))) {
-                session.setAttribute(username, userDto);
-                session.setAttribute(Attribute.ROLE.getName(), userDto.getRole());
+            String userAttribute = Attribute.USER.getValue();
+            if (Objects.isNull(session.getAttribute(userAttribute))) {
+                session.setAttribute(userAttribute, userDto);
+                session.setAttribute(Attribute.ROLE.getValue(), userDto.getRole());
             }
             Jsp.forward(req, resp, MENU);
         } else {
-            req.setAttribute(Attribute.ERROR.getName(), USER_NOT_CREATED);
+            req.setAttribute(Attribute.ERROR.getValue(), USER_NOT_CREATED);
             Jsp.forward(req, resp, SIGNUP);
         }
     }

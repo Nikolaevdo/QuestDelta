@@ -28,14 +28,14 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login"); //TODO Duplicate code with SignupServlet
         boolean validLogin = userService.validateLogin(login);
         if (!validLogin) {
-            req.setAttribute(Attribute.ERROR.getName(), LOGIN_NOT_VALID);
+            req.setAttribute(Attribute.ERROR.getValue(), LOGIN_NOT_VALID);
             Jsp.forward(req, resp, LOGIN);
         }
 
         String password = req.getParameter("password"); //TODO Validate in filter log/pass with AuthService?
         boolean validPass = userService.validatePassword(password);
         if (!validPass) {
-            req.setAttribute(Attribute.ERROR.getName(), PASSWORD_NOT_VALID);
+            req.setAttribute(Attribute.ERROR.getValue(), PASSWORD_NOT_VALID);
             Jsp.forward(req, resp, LOGIN);
         }
 
@@ -47,15 +47,15 @@ public class LoginServlet extends HttpServlet {
             if (userDtoFromDB.isPresent()) {
                 HttpSession session = req.getSession();
                 UserDto userDto = userDtoFromDB.get();
-                session.setAttribute(Attribute.USER.getName(), userDto);
-                session.setAttribute(Attribute.ROLE.getName(), userDto.getRole());
+                session.setAttribute(Attribute.USER.getValue(), userDto);
+                session.setAttribute(Attribute.ROLE.getValue(), userDto.getRole());
                 Jsp.forward(req, resp, MENU);
             } else {
-                req.setAttribute(Attribute.ERROR.getName(), WRONG_PASSWORD);
+                req.setAttribute(Attribute.ERROR.getValue(), WRONG_PASSWORD);
                 Jsp.forward(req, resp, LOGIN);
             }
         } else {
-            req.setAttribute(Attribute.ERROR.getName(), USER_NOT_FOUND);
+            req.setAttribute(Attribute.ERROR.getValue(), USER_NOT_FOUND);
             Jsp.forward(req, resp, LOGIN);
         }
     }

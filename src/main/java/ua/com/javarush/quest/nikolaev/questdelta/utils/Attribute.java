@@ -5,15 +5,17 @@ public enum Attribute {
     USER("user"),
     ROLE("role"),
     USERS("users"),
-    COUNT_USERS("countUsers");
+    PAGE_COUNT("pageCount"),
+    PAGE_NUMBER("page");
 
-    private final String name;
+
+    private final String value;
 
     Attribute(String name) {
-        this.name = name;
+        this.value = name;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 }

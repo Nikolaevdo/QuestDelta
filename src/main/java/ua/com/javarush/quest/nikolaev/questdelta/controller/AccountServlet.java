@@ -9,39 +9,37 @@ import ua.com.javarush.quest.nikolaev.questdelta.utils.*;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Objects;
 
 import static ua.com.javarush.quest.nikolaev.questdelta.utils.Const.*;
 
 @WebServlet(name = ACCOUNTSERVLET, value = ACCOUNTSERVLETVALUE)
 public class AccountServlet extends HttpServlet {
 
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int DEFAULT_PAGE_NUMBER = 0;
     private final UserService userService = UserService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String pageNumber = request.getParameter("pageNumber");
+        String pageNumber = request.getParameter(Attribute.PAGE_NUMBER.getValue());
         int pageNumberValue;
-        try {
-            pageNumberValue = Integer.parseInt(pageNumber);
-        } catch (NumberFormatException e) {
-            pageNumberValue = 0;
+        if (Objects.isNull(pageNumber)) {
+            pageNumberValue = DEFAULT_PAGE_NUMBER;
+        } else {
+            try {
+                pageNumberValue = Integer.parseInt(pageNumber);
+            } catch (NumberFormatException e) {
+                pageNumberValue = DEFAULT_PAGE_NUMBER;
+            }
         }
+        request.setAttribute(Attribute.PAGE_NUMBER.getValue(), pageNumberValue);
 
+        Collection<UserDto> users = userService.getAll(pageNumberValue, DEFAULT_PAGE_SIZE);
+        request.setAttribute(Attribute.USERS.getValue(), users);
 
-        String pageSize = request.getParameter("pageSize");
-        int pageSizeValue;
-        try {
-            pageSizeValue = Integer.parseInt(pageSize);
-        } catch (NumberFormatException e) {
-            pageSizeValue = 5;
-        }
-
-        Collection<UserDto> users = userService.getAll(pageNumberValue, pageSizeValue);
-        request.setAttribute(Attribute.USERS.getName(), users);
-
-        int countUsers = userService.getAllCount();
-        request.setAttribute(Attribute.COUNT_USERS.getName(), countUsers);
+        int pages = userService.getAllCount() / DEFAULT_PAGE_SIZE;
+        request.setAttribute(Attribute.PAGE_COUNT.getValue(), pages);
 
         Jsp.forward(request, response, ACCOUNTS);
     }

@@ -1,5 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page import="ua.com.javarush.quest.nikolaev.questdelta.entity.Role" %>
 
 <!DOCTYPE html>
@@ -7,7 +9,8 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css"/>
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -16,15 +19,9 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title text-center">Accounts list</h4>
-
-            <div class="form-group d-flex my-2">
-                <label class="bold me-2 text-muted" for="counts">Accounts per list</label>
-                <select id="counts" class="selector">
-                    <option value="5" selected>5</option>
-                    <option value="20">20</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
+            <c:if test="${Role.ADMIN == sessionScope.role}">
+                <a href="${pageContext.request.contextPath}/signup">Create new user</a>
+            </c:if>
 
             <table class="table table-striped">
                 <thead>
@@ -42,7 +39,7 @@
                 <tbody>
                 <c:forEach var="user" items="${requestScope.users}" varStatus="index">
                     <tr>
-                        <th scope="row"><c:out value="${index.count}"/></th>
+                        <th scope="row"><c:out value="${index.count + 10 * requestScope.page}"/></th>
                         <td><c:out value="${user.getLogin()}"/></td>
                         <td><c:out value="${user.getRole()}"/></td>
                         <td><c:out value="${user.getId()}"/></td>
@@ -60,12 +57,17 @@
             </table>
 
             <ul class="pagination">
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <fmt:parseNumber value="${requestScope.pageCount}" var="pages" integerOnly="TRUE" type="NUMBER"/>
+                <c:forEach var="i" begin="0" end="${pages}">
+                    <li class="${requestScope.page == i ? "page-item active" : "page-item"}">
+                        <a class="page-link"
+                           href="${pageContext.request.contextPath}/accounts?page=${i}">
+                            <c:out value="${i+1}"/>
+                        </a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
-
     </div>
     <c:if test="${not empty requestScope.error}">
         <div class="form-floating text-danger my-3 p-2">

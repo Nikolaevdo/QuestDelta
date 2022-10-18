@@ -44,6 +44,16 @@ public class UserRepository implements Repository<User> {
                 .password("333")
                 .role(Role.GUEST)
                 .build());
+
+        for (long i = 5; i <= 25; i++) {
+            users.put(i, User.builder()
+                    .id(i)
+                    .login("user" + i)
+                    .password("333")
+                    .role(Role.USER)
+                    .build());
+        }
+
     }
 
 
